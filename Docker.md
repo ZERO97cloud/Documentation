@@ -101,6 +101,7 @@ docker kill [container_id]  # arrêt forcé
 ```bash
 docker rm [container_id]
 docker rm -f [container_id]  # forcer la suppression
+docker rm $(docker ps -q)  # supprimer le conteneur recent
 docker rm $(docker ps -a -q)  # supprimer tous les conteneurs
 docker container prune  # supprimer les conteneurs arrêtés
 ```
