@@ -67,6 +67,7 @@ docker image inspect [image_name]
 docker run [options] [image]
 docker run -d [image]  # en arrière-plan (detached)
 docker run -it [image]  # interactif avec terminal
+docker run -ti --name [name_image] debian:latest # Acceder au terminal
 docker run -p [port_host]:[port_container] [image]  # mapping de port
 docker run --name [nom_conteneur] [image]  # nommer le conteneur
 docker run -v [volume_host]:[volume_container] [image]  # monter un volume
