@@ -16,6 +16,11 @@ Ce guide présente les commandes Docker les plus utiles organisées par catégor
 - [Sécurité](#sécurité)
 - [Surveillance et monitoring](#surveillance-et-monitoring)
 
+## Commande pour mettre docker en sudo 
+```bash
+sudo usermod -aG docker $USER
+```
+
 ## Gestion des images
 
 ### Télécharger une image
