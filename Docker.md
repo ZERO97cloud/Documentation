@@ -78,6 +78,11 @@ docker run --cpus=[nombre] [image]  # limiter les CPUs
 docker run --restart=always [image]  # redémarrage automatique
 ```
 
+### Lancer un conteneur a la volée
+```bash
+docker run --rm -it -v testvolume:/data ubuntu bash
+```
+
 ### Lister les conteneurs
 ```bash
 docker ps  # conteneurs actifs
