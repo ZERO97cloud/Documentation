@@ -16,7 +16,7 @@ Ce guide présente les commandes Vagrant les plus utiles pour gérer des environ
 - [Débogage et maintenance](#débogage-et-maintenance)
 - [Intégrations](#intégrations)
 - [Exemples pratiques](#exemples-pratiques)
-
+- [Config file exemple](#Mini_infra)
 ## Installation et configuration
 
 ### Installation
@@ -667,5 +667,50 @@ docker system prune -a
 ```
 
 ---
+#Mini_infra
+```bash
 
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.define "SRV01" do |srv01_config|
+    srv01_config.vm.box = "ubuntu/focal64"
+    srv01_config.vm.network "private_network", ip: "192.168.56.1"
+    srv01_config.vm.hostname = "SRV01" # Set the hostname
+    srv01_config.vm.provision "shell", inline: <<-SHELL
+      sudo apt update
+    SHELL
+  end
+
+  config.vm.define "SRV02" do |srv02_config|
+    srv02_config.vm.box = "ubuntu/focal64"
+    srv02_config.vm.network "private_network", ip: "192.168.56.2"
+    srv02_config.vm.hostname = "SRV02" # Set the hostname
+    srv02_config.vm.provision "shell", inline: <<-SHELL
+      sudo apt update
+    SHELL
+  end
+  
+  config.vm.define "SRV03" do |srv03_config|
+    srv03_config.vm.box = "ubuntu/focal64"
+    srv03_config.vm.network "private_network", ip: "192.168.56.3"
+    srv03_config.vm.hostname = "SRV03" # Set the hostname
+    srv03_config.vm.provision "shell", inline: <<-SHELL
+      sudo apt update
+    SHELL
+  end
+    
+  config.vm.define "SRV04" do |srv04_config|
+    srv04_config.vm.box = "ubuntu/focal64"
+    srv04_config.vm.network "private_network", ip: "192.168.56.4"
+    srv04_config.vm.hostname = "SRV04" # Set the hostname
+    srv04_config.vm.provision "shell", inline: <<-SHELL
+      sudo apt update
+    SHELL
+  end
+end
+
+```
 *Ce guide couvre les commandes Vagrant les plus importantes. Pour plus d'informations, consultez la [documentation officielle Vagrant](https://www.vagrantup.com/docs).*
