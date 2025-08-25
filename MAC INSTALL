@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Configuration
+AGENT_VERSION="1.15"
+SERVER_ENDPOINT_URL="https://"site"/front/inventory.php"
+AGENT_PKG_URL="https://github.com/glpi-project/glpi-agent/releases/download/${AGENT_VERSION}/GLPI-Agent-${AGENT_VERSION}_arm64.pkg"
+TAG_NAME="ville"
+
+# Récupération et installation
+TEMP_DIR=$(mktemp -d)
+cd "${TEMP_DIR}"
+curl -L -o glpi_agent.pkg "${AGENT_PKG_URL}"
+sudo installer -pkg ./glpi_agent.pkg -target /
+rm glpi_agent.pkg
+cd - > /dev/null
+
+# Configuration de l'agent
+sudo mkdir -p /Applications/GLPI-Agent/etc/conf.d
+sudo sh -c "echo 'server = ${SERVER_ENDPOINT_URL}' > /Applications/GLPI-Agent/etc/conf.d/server.cfg"
+sudo sh -c "echo 'lazy = 0' > /Applications/GLPI-Agent/etc/conf.d/communication.cfg"
+sudo sh -c "echo 'tag = ${TAG_NAME}' > /Applications/GLPI-Agent/etc/conf.d/inventory.cfg"
+
+# Démarrage et inventaire
+sudo launchctl stop org.glpi-project.glpi-agent 2>/dev/null || true
+sudo launchctl start org.glpi-project.glpi-agent
+pkill -USR1 -f -P 1 glpi-agent
+ps aux | grep 'glp[i]'
